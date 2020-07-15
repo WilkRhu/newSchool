@@ -28,5 +28,9 @@ module.exports = {
     },
     "globals": {
         "process": true
-    }
+    },
+    "ignorePatterns": [
+        "*.test.js",
+        "*/migration/"
+    ]
 };
