@@ -4,8 +4,9 @@ const User = require("../../domains/entity/users");
 
 const create = async (req, res) => {
     try {
-        const user = req.body;
-        const {error, value} = userValidate.validate(user);
+        const file = req.file.filename;
+        const {name, login, email, password, type} = req.body;
+        const {error, value} = userValidate.validate({name, login, email, password, type, file});
         if(!error){
             const createUser = await connect("users").returning("id").insert(User(value));
             const userCad = await connect("users").select("*").where("id", createUser[0]);
