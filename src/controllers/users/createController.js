@@ -4,18 +4,20 @@ const User = require("../../domains/entity/users");
 
 const create = async (req, res) => {
     try {
-        const file = req.file.filename;
+        const file = [];
+        req.file ?  file.push(req.file.filename) : ""; 
         const {name, login, email, password, type} = req.body;
-        const {error, value} = userValidate.validate({name, login, email, password, type, file});
+        const {error, value} = userValidate.validate({name, login, email, password, type, file: file[0] || null});
         if(!error){
             const createUser = await connect("users").returning("id").insert(User(value));
             const userCad = await connect("users").select("*").where("id", createUser[0]);
+            userCad[0].password = undefined;
             return res.status(201).json(userCad[0]);
         } else {
             return res.status(400).json("Error Validation");
         }
     } catch (error) {
-        return res.status(400).json({error});
+        return res.qstatus(400).json({error});
     }
 };
 

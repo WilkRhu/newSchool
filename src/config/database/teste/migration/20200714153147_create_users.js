@@ -7,7 +7,7 @@ exports.up = (knex) => {
         t.string("email").notNull();
         t.string("password").notNull();
         t.string("type").notNull();
-        t.string("file").notNull();
+        t.string("file");
         t.timestamp("create_at");
         t.timestamp("updated_at");
     });
