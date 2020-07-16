@@ -44,39 +44,10 @@ const upload = multer({
     storage
 });
 
-const envImage = (res, name) => {
-    gfs.files.findOne({
-        filename: name
-    }, ({
-        err,
-        file
-    }) => {
-        if (!file || file.length === 0) {
-            return res.status(404).json({
-                err: "No file exists"
-            });
-        }
-        return res.json(file);
-    });
-};
 
-const envImages = async (name) => {
-    for (let i = 0; i < name.length; i++) {
-        const file = await gfs.files.findOne({
-            filename: name[i].file
-        });
-        if (!file || file.length === 0) {
-            return "No file exists";
-        }
-        return file;
-
-    }
-};
 
 
 
 module.exports = {
-    upload,
-    envImage,
-    envImages
+    upload
 };
