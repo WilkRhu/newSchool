@@ -4,7 +4,7 @@ const {
     userMock,
     userMockFail
 } = require("../../utils/user/userMock");
- require("../../../src/utils/validations/users/userValidations");
+
 
 describe("Test Users on router", () => {
     describe("Users", () => {

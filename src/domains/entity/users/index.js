@@ -1,9 +1,11 @@
+const cryptPassword = require("../../../utils/cryptPassword");
+
 const userSchema = (data) => {
     const user = {
         name: data.name,
         login: data.login,
         email: data.email,
-        password: data.password,
+        password: cryptPassword(data.password),
         type: data.type,
         file: data.file
 
