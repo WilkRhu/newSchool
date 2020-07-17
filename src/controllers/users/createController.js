@@ -9,15 +9,14 @@ const create = async (req, res) => {
         const {name, login, email, password, type} = req.body;
         const {error, value} = userValidate.validate({name, login, email, password, type, file: file[0] || null});
         if(!error){
-            const createUser = await connect("users").returning("id").insert(User(value));
-            const userCad = await connect("users").select("*").where("id", createUser[0]);
-            userCad[0].password = undefined;
-            return res.status(201).json(userCad[0]);
+            const createUser = await connect("users").returning("*").insert(User(value));
+            createUser[0].password = undefined;
+            return res.status(201).json(createUser[0]);
         } else {
             return res.status(400).json("Error Validation");
         }
     } catch (error) {
-        return res.qstatus(400).json({error});
+        return res.status(400).json(error);
     }
 };
 
