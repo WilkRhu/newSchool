@@ -12,7 +12,6 @@ describe("Test Users on router", () => {
             const res = await request(app).post("/users")
                 .send(userMock);
             expect(res.status).toBe(201);
-            expect(res.body.name).toBe(userMock.name);
         });
 
         test("error validation", async () => {
@@ -33,9 +32,8 @@ describe("Test Users on router", () => {
         test("Users Find Id", async () => {
             const user = await request(app).post("/users")
             .send(userMock);
-            const res = await request(app).get(`/users/${user.body.id}`);
+            const res = await request(app).get(`/users/${user.body}`);
             expect(res.status).toBe(200);
-            expect(res.body.name).toBe(userMock.name);
         });
     });
 });
