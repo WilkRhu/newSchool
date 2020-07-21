@@ -28,6 +28,7 @@ describe("Test Users on router", () => {
             expect(res.status).toBe(200);
             expect(res.body).toBeTruthy();
         });
+        
         test("Users Find Id", async () => {
             const user = await request(app).post("/users")
             .send(userMock);
