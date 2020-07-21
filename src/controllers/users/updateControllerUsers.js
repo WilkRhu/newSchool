@@ -1,5 +1,6 @@
 const connect = require("../../config/connect/index");
 const criptPassword = require("../../utils/cryptPassword");
+const avatarFilesUploads = require("./updateAvatar");
 const avatarFiles = require("./createAvatar");
 
 const updateUsers = async (req, res) => {
@@ -20,8 +21,14 @@ const updateUsers = async (req, res) => {
                 password: newpass,
             });
             if (req.file) {
-                avatarFiles(req.file, user.id);
-                user.file = req.file.originalname;
+                const verifyFile = await connect("file").select("*").where("user_id", id);
+                if(verifyFile.length === 0){
+                    avatarFiles(req.file, id);
+                    user.file = req.file.originalname;
+                } else {
+                    avatarFilesUploads(req.file, id);
+                    user.file = req.file.originalname;
+                }
             }
             return res.status(201).json(user);
         } else {
