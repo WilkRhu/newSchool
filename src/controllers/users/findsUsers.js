@@ -1,28 +1,33 @@
 const connect = require("../../config/connect");
-
+const getUsersAvatar = require("../../domains/entity/avatarFile/getUsersAvatar");
+const getAvatarUserId = require("../../domains/entity/avatarFile/getUserIdFile");
 const findUsers = async (req, res) => {
     try {
         const users = await connect("users").select("*");
         if (users.length === 0) {
             return res.status(404).json("Users not found!");
         } else {
-            return res.status(200).json(users);
+            const file = await getUsersAvatar(users);
+            return res.status(200).json({users, file});
         }
-    } catch(error) {
+    } catch (error) {
         return res.status(400).json(error);
     }
 };
 
 const findUserId = async (req, res) => {
     try {
-        const {id} = req.params;
+        const {
+            id
+        } = req.params;
         const user = await connect("users").select("*").where("id", id);
         if (user.length === 0) {
             return res.status(404).json("User Not Found");
         } else {
-            return res.status(200).json(user[0]);
+            const file = await getAvatarUserId(id);
+            return res.status(200).json({user: user[0], file});
         }
-    } catch(error) {
+    } catch (error) {
         return res.status(400).json(error);
     }
 };

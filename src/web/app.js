@@ -10,6 +10,7 @@ const knex = require("knex");
 const knexfile = require("../../knexfile");
 const methodOverride = require("method-override");
 
+
 app.use(methodOverride("_method"));
 
 app.db = knex(process.env.NODE_ENV === "test" ? knexfile.test : knexfile.production);

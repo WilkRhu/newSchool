@@ -7,7 +7,6 @@ exports.up = async (knex) => {
         t.string("email").notNull().unique();
         t.string("password").notNull();
         t.string("type").notNull();
-        t.string("file");
         t.timestamp("create_at").defaultTo(knex.fn.now());
         t.timestamp("updated_at").defaultTo(knex.fn.now());
     });

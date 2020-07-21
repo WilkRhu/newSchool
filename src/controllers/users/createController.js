@@ -1,15 +1,18 @@
 const connect = require("../../config/connect");
 const userValidate = require("../../utils/validations/users/userValidations");
 const User = require("../../domains/entity/users");
+const avatarFiles = require("./createAvatar");
 
 const create = async (req, res) => {
     try {
-        const file = [];
-        req.file ?  file.push(req.file.filename) : ""; 
         const {name, login, email, password, type} = req.body;
-        const {error, value} = userValidate.validate({name, login, email, password, type, file: file[0] || null});
+        const {error, value} = userValidate.validate({name, login, email, password, type});
         if(!error){
             const createUser = await connect("users").returning("*").insert(User(value));
+            if(req.file ){
+                avatarFiles(req.file , createUser[0].id );
+                createUser[0].file = req.file.originalname;
+            }
             createUser[0].password = undefined;
             return res.status(201).json(createUser[0]);
         } else {

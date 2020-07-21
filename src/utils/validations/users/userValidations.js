@@ -21,7 +21,6 @@ const userValidate = Joi.object({
         .required(),
     type: Joi.string()
         .required(),
-    file: Joi.optional(),
 
 });
 
