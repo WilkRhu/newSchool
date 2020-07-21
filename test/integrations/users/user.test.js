@@ -35,4 +35,14 @@ describe("Test Users on router", () => {
             expect(res.body).toBeTruthy();
         });
     });
+
+    describe("SingIn user", () => {
+        test("SingIn", async ()=>{
+            const res = await request(app).post("/users")
+            .send(userMock);
+            const singIn = await request(app).post("/singIn")
+            .send(res[0].email, res[0].password);
+            console.log(singIn);
+        })
+    })
 });

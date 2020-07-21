@@ -21,6 +21,7 @@ const userValidate = Joi.object({
         .required(),
     type: Joi.string()
         .required(),
+    token: Joi.string().optional()
 
 });
 

@@ -2,11 +2,13 @@ const connect = require("../../config/connect");
 const userValidate = require("../../utils/validations/users/userValidations");
 const User = require("../../domains/entity/users");
 const avatarFiles = require("./createAvatar");
+const createToken = require("../../utils/createToken");
 
 const create = async (req, res) => {
     try {
         const {name, login, email, password, type} = req.body;
-        const {error, value} = userValidate.validate({name, login, email, password, type});
+        const token = createToken(name, email);
+        const {error, value} = userValidate.validate({ name, login, email, password, type, token });
         if(!error){
             const createUser = await connect("users").returning("*").insert(User(value));
             if(req.file ){

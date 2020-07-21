@@ -7,6 +7,7 @@ const userSchema = (data) => {
         email: data.email,
         password: cryptPassword(data.password),
         type: data.type,
+        token: data.token,
     };
 
     return user;
