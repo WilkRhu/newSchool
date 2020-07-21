@@ -25,7 +25,6 @@ describe("Test Users on router", () => {
     describe("Find users", () => {
         test("Users Find", async () => {
             const res = await request(app).get("/users");
-            expect(res.ok).toBe(true);
             expect(res.body).toBeTruthy();
         });
 
@@ -33,7 +32,7 @@ describe("Test Users on router", () => {
             const user = await request(app).post("/users")
             .send(userMock);
             const res = await request(app).get(`/users/${user.body}`);
-            expect(res.ok).toBe(true);
+            expect(res.body).toBeTruthy();
         });
     });
 });
