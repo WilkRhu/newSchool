@@ -14,12 +14,14 @@ const singIn = async (req, res) => {
         }
 
         const user = await connect("users").select("*").where("email", email);
-        const newToken = createToken(user[0].nome, user[0].email);
-        await connect("users").where("email", email).update({
-            token: newToken
-        });
+        if (user.length !== 0) {
+            const newToken = createToken(user[0].name, user[0].email);
+            await connect("users").where("email", email).update({
+                token: newToken
+            });
+        }
 
-        if (!user) {
+        if (user.length === 0) {
             return res.status(400).json("Usuário e/ou senha inválidos!");
         }
 

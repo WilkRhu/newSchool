@@ -14,19 +14,18 @@ module.exports = {
     },
 
     test: {
-        client: "sqlite3",
+        client: "pg",
+        version: "9.6",
         connection: {
-            filename: "./src/config/database/bancotest.sqlite"
-        },
-        pool: {
-            min: 2,
-            max: 10
+            host: "127.0.0.1",
+            user: "postgres",
+            password: "123",
+            database: "school_test"
         },
         migrations: {
-            tableName: "knex_migrations",
-            directory: "src/config/database/teste/migration"
-        }
+            directory: "src/config/database/migration"
+        },
     },
 
 
-}
+};

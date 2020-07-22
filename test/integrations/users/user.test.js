@@ -11,7 +11,7 @@ describe("Test Users on router", () => {
         test("create user router", async () => {
             const res = await request(app).post("/users")
                 .send(userMock);
-            expect(res.ok).toBe(true);
+            expect(res.body.name).toBe(userMock.name);
         });
 
         test("error validation", async () => {
@@ -37,12 +37,47 @@ describe("Test Users on router", () => {
     });
 
     describe("SingIn user", () => {
-        test("SingIn", async ()=>{
+        test("SingIn Sucess", async ()=>{
             const res = await request(app).post("/users")
             .send(userMock);
             const singIn = await request(app).post("/singIn")
-            .send(res[0].email, res[0].password);
-            console.log(singIn);
-        })
+            .send({
+                email: userMock.email, 
+                password: userMock.password
+            });
+            expect(singIn.status).toBe(200);
+        });
+
+        test("SingIn Erro", async () => {
+            const res = await request(app).post("/users")
+            .send(userMock);
+            const singIn = await request(app).post("/singIn")
+            .send({
+                email: userMock.email
+            });
+            expect(singIn.body).toBe("Dados Insuficientes!");
+        });
+
+        test("SingIn Erro User/Password", async () => {
+            const res = await request(app).post("/users")
+            .send(userMock);
+            const singIn = await request(app).post("/singIn")
+            .send({
+                email: userMockFail.email,
+                password: userMock.password
+            });
+            expect(singIn.body).toBe("Usuário e/ou senha inválidos!");
+        });
+
+        test("SingIn Erro Password", async () => {
+            const res = await request(app).post("/users")
+            .send(userMock);
+            const singIn = await request(app).post("/singIn")
+            .send({
+                email: res.body.email,
+                password: "1234"
+            });
+            expect(singIn.body).toBe("Usuário e/ou senha inválidos");
+        });
     })
 });
