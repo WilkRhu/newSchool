@@ -1,4 +1,4 @@
-const addressSchema = (data) => {
+const adressSchema = (data) => {
     const address = {
         user_id: data.user_id,
         street: data.street,
@@ -12,4 +12,4 @@ const addressSchema = (data) => {
     return address;
 };
 
-module.exports = addressSchema;
+module.exports = adressSchema;
