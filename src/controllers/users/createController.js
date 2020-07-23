@@ -4,7 +4,7 @@ const User = require("../../domains/entity/users");
 const avatarFiles = require("./createAvatar");
 const createToken = require("../../utils/createToken");
 const envMail = require("../../utils/nodeMailer");
-const {returnUserSchema} = require("../../utils/returnUserSchema");
+const {returnCreate} = require("../../utils/returnUserSchema");
 
 const create = async (req, res) => {
     try {
@@ -20,7 +20,7 @@ const create = async (req, res) => {
                 avatarFiles(req.file , createUser[0].id );
                 createUser[0].file = req.file.originalname;
             }
-            return res.status(201).json(returnUserSchema(createUser[0]));
+            return res.status(201).json(returnCreate(createUser[0]));
         } else {
             return res.status(400).json("Error Validation");
         }

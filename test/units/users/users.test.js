@@ -1,11 +1,15 @@
 const {
     userMock,
-    userMockFail
+    userMockFail,
+    userMockFind,
+    userMockFindId
 } = require("../../utils/user/userMock");
 const connect = require("../../../src/config/connect");
 const userValidate = require("../../../src/utils/validations/users/userValidations");
+const User = require("../../../src/domains/entity/users");
+const createToken = require("../../../src/utils/createToken");
 const {
-   response
+    response
 } = require("express")();
 
 
@@ -16,11 +20,18 @@ describe("Users Tests", () => {
             const {
                 error,
                 value
-            } = await userValidate.validate(userMock);
+            } = await userValidate.validate({
+                name: userMock.name,
+                login: userMock.login,
+                email: userMock.email,
+                password: userMock.password,
+                type: userMock.type,
+                token: createToken(userMock.name, userMock.email)
+            });
+            
             if (!error) {
-                const create = await connect("users").returning("id").insert(value);
-                const userCreate = await connect("users").select("*").where("id", create[0]);
-                expect(userCreate[0].name).toBe(value.name);
+                const create = await connect("users").returning("*").insert(value);
+                expect(create[0].name).toBe(value.name);
             }
         });
 
@@ -29,10 +40,7 @@ describe("Users Tests", () => {
                 error
             } = userValidate.validate(userMockFail);
             if (error) {
-                response.status = 400; 
-                response.body = "Error Validation";
-                expect(response.status).toBe(400);
-                expect(response.body).toBe("Error Validation");
+                expect(error.message).toBe('"password" is required');
             }
         });
 
@@ -40,11 +48,19 @@ describe("Users Tests", () => {
             const {
                 error,
                 value
-            } = await userValidate.validate(userMock);
+            } = await userValidate.validate({
+                name: userMockFind.name,
+                login: userMockFind.login,
+                email: userMockFind.email,
+                password: userMockFind.password,
+                type: userMockFind.type,
+                token: createToken(userMockFind.name, userMockFind.email)
+            });
             if (!error) {
-                const create = await connect("users").returning("id").insert(value);
-                const userCreate = await connect("users").select("*");
-                expect(userCreate[0]).toBeTruthy();
+                const create = await connect("users").returning("*").insert(User(value));
+                const userCreate = await connect("users").select("*").where("id", create[0].id);
+                expect(userCreate.length > 1);
+                expect(userCreate[0].name).toBe(create[0].name)
             }
         });
 
@@ -52,9 +68,16 @@ describe("Users Tests", () => {
             const {
                 error,
                 value
-            } = await userValidate.validate(userMock);
+            } = await userValidate.validate({
+                name: userMockFindId.name,
+                login: userMockFindId.login,
+                email: userMockFindId.email,
+                password: userMockFindId.password,
+                type: userMockFindId.type,
+                token: createToken(userMockFindId.name, userMockFindId.email)
+            });
             if (!error) {
-                const create = await connect("users").returning("id").insert(value);
+                const create = await connect("users").returning("id").insert(User(value));
                 const userCreate = await connect("users").select("*").where("id", create[0]);
                 expect(userCreate[0]).toBeTruthy();
                 expect(userCreate[0].name).toBe(value.name);
