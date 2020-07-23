@@ -2,6 +2,7 @@ const connect = require("../../config/connect/index");
 const criptPassword = require("../../utils/cryptPassword");
 const avatarFilesUploads = require("./updateAvatar");
 const avatarFiles = require("./createAvatar");
+const { returnUpdate } = require("../../utils/returnUserSchema");
 
 const updateUsers = async (req, res) => {
     try {
@@ -19,18 +20,17 @@ const updateUsers = async (req, res) => {
                 email: upUser.email,
                 type: upUser.type,
                 password: newpass,
+                updated_at: new Date(),
             });
             if (req.file) {
                 const verifyFile = await connect("file").select("*").where("user_id", id);
                 if(verifyFile.length === 0){
                     avatarFiles(req.file, id);
-                    user.file = req.file.originalname;
                 } else {
                     avatarFilesUploads(req.file, id);
-                    user.file = req.file.originalname;
                 }
             }
-            return res.status(201).json(user);
+            return res.status(201).json(returnUpdate(user[0]));
         } else {
             return res.status(404).json("User Not Found");
         }

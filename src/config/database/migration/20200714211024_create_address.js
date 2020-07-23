@@ -1,6 +1,6 @@
 exports.up = async (knex) => {
     await knex.schema.raw('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"');
-    return knex.schema.createTable("address", (t) => {
+    return knex.schema.createTable("adress", (t) => {
         t.uuid("id").unique().notNull().primary().defaultTo(knex.raw("uuid_generate_v4()"));
         t.string("user_id").unsigned();
         t.foreign("user_id").references("id");
@@ -16,5 +16,5 @@ exports.up = async (knex) => {
 };
 
 exports.down = (knex) => {
-    return knex.schema.dropTable("address");
+    return knex.schema.dropTable("adress");
 };
