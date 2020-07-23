@@ -1,14 +1,14 @@
 const router = require("express").Router();
 const userController = require("../../../controllers");
 const upload = require("../../../middleware/uploadPg");
-const authUsers = require("../../../middleware/authUsers");
+const { authAdmin } = require("../../../middleware/authUsers");
 
 
 router.post("/users", upload.single("file"), userController.create);
-router.get("/users", authUsers, userController.findUsers);
-router.get("/users/:id", authUsers, userController.findUserId);
-router.patch("/users/:id", authUsers, upload.single("file"), userController.updateUsers);
-router.delete("/users/:id", authUsers, userController.deletUsers);
+router.get("/users", authAdmin, userController.findUsers);
+router.get("/users/:id", authAdmin, userController.findUserId);
+router.patch("/users/:id", authAdmin, upload.single("file"), userController.updateUsers);
+router.delete("/users/:id", authAdmin, userController.deletUsers);
 router.post("/singIn", userController.singIn);
 
 
