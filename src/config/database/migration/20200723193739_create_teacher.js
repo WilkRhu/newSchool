@@ -1,17 +1,15 @@
-
 exports.up = (knex) => {
-  return knex.schema.createTable("file", (t) => {
+    return knex.schema.createTable("teachers", (t) => {
         t.increments("id").primary();
         t.string("user_id").unsigned();
         t.foreign("user_id").references("id");
-        t.string("type");
-        t.string("name");
-        t.binary("data", 250);
+        t.integer("matter_id").unsigned();
+        t.foreign("matter_id").references("id");
         t.timestamp("created_at").defaultTo(knex.fn.now());
         t.timestamp("updated_at").defaultTo(knex.fn.now());
-    });
+    })
 };
 
-exports.down = (knex) => {
-  return knex.schema.dropTable("file");
+exports.down = function (knex) {
+    return knex.schema.dropTable("teachers");
 };

@@ -10,7 +10,7 @@ exports.up = async (knex) => {
         t.string("city");
         t.string("neighborhood");
         t.string("reference");
-        t.timestamp("create_at").defaultTo(knex.fn.now());
+        t.timestamp("created_at").defaultTo(knex.fn.now());
         t.timestamp("updated_at").defaultTo(knex.fn.now());
     });
 };

@@ -8,7 +8,7 @@ exports.up = async (knex) => {
         t.string("password").notNull();
         t.enum("type", ["admin", "student", "teacher"]);
         t.string("token");
-        t.timestamp("create_at").defaultTo(knex.fn.now());
+        t.timestamp("created_at").defaultTo(knex.fn.now());
         t.timestamp("updated_at").defaultTo(knex.fn.now());
     });
 };
