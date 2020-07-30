@@ -1,11 +1,11 @@
 exports.up = (knex) => {
-    return knex.schema.createTable("serie_matter", (t) => {
+    return knex.schema.createTable("serie_subject", (t) => {
         t.integer("serie_id").unsigned();
         t.foreign("serie_id").references("id").inTable("series")
         .onUpdate("CASCADE")
         .onDelete("CASCADE");
-        t.integer("matter_id").unsigned();
-        t.foreign("matter_id").references("id").inTable("matter")
+        t.integer("subject_id").unsigned();
+        t.foreign("subject_id").references("id").inTable("subject")
         .onUpdate("CASCADE")
         .onDelete("CASCADE");
         t.timestamp("created_at").defaultTo(knex.fn.now());
@@ -14,5 +14,5 @@ exports.up = (knex) => {
 };
 
 exports.down = (knex) => {
-    return knex.schema.dropTable("serie_matter");
+    return knex.schema.dropTable("serie_subject");
 };
