@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node",
+    "start": "node index.js",
     "pretest": "node_modules/.bin/knex migrate:latest --env test",
     "test": "jest --watchAll  --verbose=false",
     "posttest": "node_modules/.bin/knex migrate:rollback --all --env test",
