@@ -1,12 +1,12 @@
 const connect = require("../../config/connect");
-const matterValue = require("../../utils/validations/matter");
 const Matter = require("../../domains/entity/matter");
+const matterValidation = require("../../utils/validations/matter/matterValidation");
 
 
 const createMatter = async (req, res) => {
     try {
         const { name } = req.body;
-        const { error, value } = matterValue.validate({name});
+        const { error, value } = matterValidation.validate({name});
         if(!error) {
             const matter = await connect("matter").returning("*").insert(Matter(value));
             return res.status(201).json(matter);
