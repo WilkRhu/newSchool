@@ -49,8 +49,6 @@ describe("Test Users on router", () => {
         });
 
         test("SingIn Erro", async () => {
-            const res = await request(app).post("/users")
-            .send(userMock);
             const singIn = await request(app).post("/singIn")
             .send({
                 email: userMock.email
@@ -59,8 +57,6 @@ describe("Test Users on router", () => {
         });
 
         test("SingIn Erro User/Password", async () => {
-            const res = await request(app).post("/users")
-            .send(userMock);
             const singIn = await request(app).post("/singIn")
             .send({
                 email: userMockFail.email,
