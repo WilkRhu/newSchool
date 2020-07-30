@@ -8,6 +8,7 @@ const updateAdress = require("./adress/updateAdress");
 const findAdress = require("./adress/findAdress");
 const deleteAdress = require("./adress/deleteAdress");
 const createSeries = require("./series/createSeries");
+const createMatter = require("./matter/createMatter");
 
 
 module.exports = {
@@ -22,5 +23,5 @@ module.exports = {
     findAdress,
     deleteAdress,
     createSeries,
-    
+    createMatter
 };
