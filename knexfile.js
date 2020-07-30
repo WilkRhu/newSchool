@@ -4,7 +4,7 @@ module.exports = {
         version: "9.6",
         connection: process.env.DATABASE_URL,
         migrations: {
-            directory: __dirname + "src/config/database/migration"
+            directory: __dirname + "/src/config/database/migration"
         },
     },
 
@@ -13,7 +13,7 @@ module.exports = {
         version: "9.6",
         connection: process.env.DATABASE_URL,
         migrations: {
-            directory: __dirname + "src/config/database/migration"
+            directory: __dirname + "/src/config/database/migration"
         },
     },
 
