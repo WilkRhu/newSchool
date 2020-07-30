@@ -1,7 +1,7 @@
 const returnCreate = (data) => {
 
     const user = {
-        _id: data.id,
+        id: data.id,
         name: data.name,
         login: data.login,
         email: data.email,
@@ -13,15 +13,35 @@ const returnCreate = (data) => {
     return user;
 };
 
+const returnUpdateStudant = (data, user) => {
+    const studant = {
+        id: user.id,
+        name: user.name,
+        login: user.login,
+        email: user.email,
+        type: user.type,
+        token: user.token,
+        number_registration: data.number_registration,
+        student_responsible_one: data.student_responsible_one,
+        student_responsible_two: data.student_responsible_two,
+        date_of_birth: data.date_of_birth,
+        created_at: user.create_at,
+        updated_at: user.updated_at
+    };
+
+    return studant;
+};
+
 const returnFind = (user, file) => {
     const findUser = [];
     const findFile = [];
     for (let i = 0; i < user.length; i++) {
         const userfind = {
-            _id: user[i].id,
+            id: user[i].id,
             name: user[i].name,
             login: user[i].login,
             email: user[i].email,
+            type: user[i].type,
             token: user[i].token,
             create_at: user[i].create_at,
             upadate_at: user[i].upadate_at
@@ -95,5 +115,6 @@ module.exports = {
     returnCreate,
     returnFind,
     returnFindId,
-    returnUpdate
+    returnUpdate,
+    returnUpdateStudant
 };

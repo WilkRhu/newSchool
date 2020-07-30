@@ -2,7 +2,8 @@ const connect = require("../../config/connect/index");
 const criptPassword = require("../../utils/cryptPassword");
 const avatarFilesUploads = require("./updateAvatar");
 const avatarFiles = require("./createAvatar");
-const { returnUpdate } = require("../../utils/returnUserSchema");
+const { returnUpdate, returnUpdateStudant } = require("../../utils/returnUserSchema");
+const updateStudant = require("../studantes/updateStudantes");
 
 const updateUsers = async (req, res) => {
     try {
@@ -22,6 +23,19 @@ const updateUsers = async (req, res) => {
                 password: newpass,
                 updated_at: new Date(),
             });
+            if (verifyUser[0].type === "student") {
+                const data = {
+                    number_registration: req.body.number_registration,
+                    student_responsible_one: req.body.student_responsible_one,
+                    student_responsible_two: req.body.student_responsible_two,
+                    date_of_birth: req.body.date_of_birth
+                };
+
+                await updateStudant(data, verifyUser[0].id);
+                return res.status(201).json(returnUpdateStudant(data, user[0]));
+            } else if(verifyUser[0].type === "admin") {
+                return res.status(201).json(returnUpdate(user[0]));
+            }
             if (req.file) {
                 const verifyFile = await connect("file").select("*").where("user_id", id);
                 if(verifyFile.length === 0){
@@ -30,7 +44,6 @@ const updateUsers = async (req, res) => {
                     avatarFilesUploads(req.file, id);
                 }
             }
-            return res.status(201).json(returnUpdate(user[0]));
         } else {
             return res.status(404).json("User Not Found");
         }

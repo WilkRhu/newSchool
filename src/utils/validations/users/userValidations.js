@@ -10,9 +10,8 @@ const userValidate = Joi.object({
         .required(),
     email: Joi.string()
         .email({
-            minDomainSegments: 3,
             tlds: {
-                allow: ["com", "net", "br"]
+                allow: false
             }
         })
         .required(),
