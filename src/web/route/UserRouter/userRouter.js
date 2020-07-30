@@ -7,7 +7,7 @@ const { authAdmin } = require("../../../middleware/authUsers");
 router.post("/users", upload.single("file"), userController.create);
 router.get("/users", authAdmin, userController.findUsers);
 router.get("/users/:id", authAdmin, userController.findUserId);
-router.patch("/users/:id", authAdmin, upload.single("file"), userController.updateUsers);
+router.put("/users/:id", authAdmin, upload.single("file"), userController.updateUsers);
 router.delete("/users/:id", authAdmin, userController.deletUsers);
 router.post("/singIn", userController.singIn);
 
