@@ -2,7 +2,7 @@ const connect = require("../../config/connect/index");
 const criptPassword = require("../../utils/cryptPassword");
 const avatarFilesUploads = require("./updateAvatar");
 const avatarFiles = require("./createAvatar");
-const { returnUpdateStudant } = require("../../utils/returnUserSchema");
+const { returnUpdate, returnUpdateStudant } = require("../../utils/returnUserSchema");
 const updateStudant = require("../studantes/updateStudantes");
 
 const updateUsers = async (req, res) => {
@@ -33,6 +33,8 @@ const updateUsers = async (req, res) => {
 
                 await updateStudant(data, verifyUser[0].id);
                 return res.status(201).json(returnUpdateStudant(data, user[0]));
+            } else if(verifyUser[0].type === "admin") {
+                return res.status(201).json(returnUpdate(user[0]));
             }
             if (req.file) {
                 const verifyFile = await connect("file").select("*").where("user_id", id);
