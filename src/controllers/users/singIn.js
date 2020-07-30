@@ -15,7 +15,7 @@ const singIn = async (req, res) => {
 
         const user = await connect("users").select("*").where("email", email);
         if (user.length !== 0) {
-            const newToken = createToken(user[0].name, user[0].email, user[0].type);
+            const newToken = createToken(user[0].id, user[0].name, user[0].email, user[0].type);
             await connect("users").where("email", email).update({
                 token: newToken
             });
