@@ -20,7 +20,7 @@ module.exports = {
             host: "127.0.0.1",
             user: "postgres",
             password: "123",
-            database: "school1"
+            database: "school_test"
         },
         migrations: {
             directory: __dirname + "/src/config/database/migration"
