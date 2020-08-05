@@ -4,9 +4,9 @@ const userRouter = require("./UserRouter/userRouter");
 const adressRouter = require("./AdressRouter/adressRouter");
 const seriesRouter = require("./Series/seriesRouter");
 const subjectRouter = require("./SubjectRouter/subjectRouter");
-const classesRouter = require("./ClassesRouter/classesRouter");
+const lessonsRouter = require("./LessonsRouter/lessonsRouter");
 
-router.use(userRouter, adressRouter, seriesRouter, subjectRouter, classesRouter);
+router.use(userRouter, adressRouter, seriesRouter, subjectRouter, lessonsRouter);
 
 routerApi.use("/", router);
 
