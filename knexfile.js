@@ -2,7 +2,12 @@ module.exports = {
     production: {
         client: "pg",
         version: "9.6",
-        connection: process.env.DATABASE_URL,
+        connection: {
+            host: "127.0.0.1",
+            user: "postgres",
+            password: "123",
+            database: "school1"
+        },
         migrations: {
             directory: __dirname + "/src/config/database/migration"
         },
@@ -11,7 +16,12 @@ module.exports = {
     test: {
         client: "pg",
         version: "9.6",
-        connection: process.env.DATABASE_URL,
+        connection: {
+            host: "127.0.0.1",
+            user: "postgres",
+            password: "123",
+            database: "school1"
+        },
         migrations: {
             directory: __dirname + "/src/config/database/migration"
         },
