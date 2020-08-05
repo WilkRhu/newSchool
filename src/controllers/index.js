@@ -14,10 +14,10 @@ const findSubject = require("./subject/findSubject");
 const findSubjectId = require("./subject/findSubjectId");
 const deleteSubject = require("./subject/deleteSubject");
 const createLessons = require("./lessons/createLessons");
-const updateLessons = require("./Lessons/updateLessons");
-const deleteLessons = require("./Lessons/deleteLessons");
-const findLessons = require("./Lessons/findLessons");
-const findIDLessons = require("./Lessons/findIDLessons");
+const updateLessons = require("./lessons/updateLessons");
+const deleteLessons = require("./lessons/deleteLessons");
+const findLessons = require("./lessons/findLessons");
+const findIDLessons = require("./lessons/findIDLessons");
 
 
 module.exports = {
