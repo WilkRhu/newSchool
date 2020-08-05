@@ -13,6 +13,11 @@ const updateSubject = require("./subject/updateSubject");
 const findSubject = require("./subject/findSubject");
 const findSubjectId = require("./subject/findSubjectId");
 const deleteSubject = require("./subject/deleteSubject");
+const createLessons = require("./lessons/createLessons");
+const updateLessons = require("./Lessons/updateLessons");
+const deleteLessons = require("./Lessons/deleteLessons");
+const findLessons = require("./Lessons/findLessons");
+const findIDLessons = require("./Lessons/findIDLessons");
 
 
 module.exports = {
@@ -31,5 +36,10 @@ module.exports = {
     updateSubject,
     findSubject,
     findSubjectId,
-    deleteSubject
+    deleteSubject,
+    createLessons,
+    updateLessons,
+    deleteLessons,
+    findLessons,
+    findIDLessons
 };
