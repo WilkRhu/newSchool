@@ -4,7 +4,7 @@ const deleteSeries = async (req, res) => {
     try {
         const { id } = req.params;
         await connect("series").where("id", id).del();
-        return res.status(200).json("Serie Deleting successfully!");
+        return res.status(200).json("Serie deleted successfully!");
     } catch (error) {
         return res.status(400).json(error);
     }

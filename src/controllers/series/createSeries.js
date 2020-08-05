@@ -4,10 +4,13 @@ const seriesSchema = require("../../domains/entity/series");
 
 const createSerie = async (req, res) => {
     try {
-        const {name} = req.body;
+        const {name, subject} = req.body;
         const { error, value } = seriesValidation.validate({ name });
         if (!error) {
             const series = await connect("series").returning("*").insert(seriesSchema(value));
+            for (let i = 0; i < subject.length; i++) {
+                await connect("serie_subject").insert({serie_id: series[0].id, subject_id: subject[i] });
+            }
             return res.status(201).json(series[0]);
         }
     } catch (error) {
