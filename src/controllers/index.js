@@ -8,6 +8,10 @@ const updateAdress = require("./adress/updateAdress");
 const findAdress = require("./adress/findAdress");
 const deleteAdress = require("./adress/deleteAdress");
 const createSeries = require("./series/createSeries");
+const findSeries = require("./series/findSeries");
+const findIDSeries = require("./series/findIDSeries");
+const deleteSeries = require("./series/deleteSeries");
+const updateSeries = require("./series/updateSeries");
 const createSubject = require("./subject/createSubjects");
 const updateSubject = require("./subject/updateSubject");
 const findSubject = require("./subject/findSubject");
@@ -32,6 +36,10 @@ module.exports = {
     findAdress,
     deleteAdress,
     createSeries,
+    findSeries,
+    findIDSeries,
+    deleteSeries,
+    updateSeries,
     createSubject,
     updateSubject,
     findSubject,
