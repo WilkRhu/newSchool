@@ -5,8 +5,8 @@ exports.up = (knex) => {
         t.foreign("user_id")
         .onUpdate("CASCADE")
         .onDelete("CASCADE").references("id").inTable("users");
-        t.integer("matter_id").unsigned();
-        t.foreign("matter_id").references("id");
+        t.string("subjects");
+        t.string("series");
         t.timestamp("created_at").defaultTo(knex.fn.now());
         t.timestamp("updated_at").defaultTo(knex.fn.now());
     });

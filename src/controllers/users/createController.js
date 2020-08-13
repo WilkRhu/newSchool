@@ -46,9 +46,10 @@ const create = async (req, res) => {
                     const token = createToken(createUser[0].id, name, email, type);
                     const userToken = await connect("users").where("id", createUser[0].id).update({ token: token }).returning("*");
                     const data = {
-                        matter_id: teacher.matter_id
+                        subjects: teacher.subjects,
+                        series: teacher.series
                     };
-                    const teacherReturn = await createTeacher(createUser[0].id, data.matter_id);
+                    const teacherReturn = await createTeacher(createUser[0].id, data.subjects, data.series);
                     if (teacherReturn.error || teacherReturn.message) { 
                         await connect("users").where("id", createUser[0].id).del();
                         return res.status(400).json(teacherReturn.message || teacherReturn.error);

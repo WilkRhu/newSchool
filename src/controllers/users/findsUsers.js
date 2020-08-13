@@ -13,7 +13,7 @@ const findUsers = async (req, res) => {
             return res.status(200).json(returnFind(users, file));
         }
     } catch (error) {
-        return res.status(400).json(error);
+        return res.status(400).json(error.messa);
     }
 };
 

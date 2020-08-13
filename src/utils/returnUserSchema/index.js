@@ -46,24 +46,27 @@ const returnFind = (user, file) => {
             create_at: user[i].create_at,
             upadate_at: user[i].upadate_at
         };
-
+        findUser.push(userfind);
+    }
+        
+    for (let index = 0; index < file.length; index++) {
         const avatar = {
-            user_id: file[i][0].user_id,
-            type: file[i][0].type,
-            name: file[i][0].name,
+            user_id: file[index].user_id,
+            type: file[index].type,
+            name: file[index].name,
             data: {
-                data: file[i][0].data
-            },
+                data: file[index].data
+            }
         };
 
-        findUser.push(userfind);
         findFile.push(avatar);
+    }    
 
-    }
     return {
         user: findUser,
         file: findFile
     };
+
 
 };
 
